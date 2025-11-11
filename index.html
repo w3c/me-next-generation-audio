@@ -166,7 +166,7 @@ if (ngaAPI) {
           ae.prominenceInteractivity.minProminence &lt;= 7.5 &&
           ae.prominenceInteractivity.maxProminence &&
           ae.prominenceInteractivity.maxProminence >= 7.5) {
-      ae.prominenceInteractivity.prominence = 7.5;
+      ae.prominenceInteractivity.setProminence(7.5);
       }
     }
   }
@@ -209,7 +209,7 @@ if (ngaAPI) {
         ae.positionInteractivity.minElevation &lt;= 90.0 &&
         ae.positionInteractivity.maxElevation &&
         ae.positionInteractivity.maxElevation >= 90.0) {
-    ae.positionInteractivity.elevation = 90.0;
+    ae.positionInteractivity.setElevation(90.0);
     }
   }
 }
@@ -250,7 +250,7 @@ if (ngaAPI) {
       for (let j = 0; j &lt; ae.labels.length; ++j) {
         for (const [key, value] in ae.labels[j].label) {
           if (value === "English") {
-            aes.selectedAudioElement = ae;
+            aes.selectAudioElement(ae);
             return;
           }
         }
@@ -287,11 +287,11 @@ const video = document.getElementById("video");
 const ngaAPI = video.ngaAPI;
 if (ngaAPI) {
   let ae1 = getAudioObject(ngaAPI, "Main", "Commentator");
-  ae1.prominenceInteractivity.prominence = 7.5;
+  ae1.prominenceInteractivity.setProminence(7.5);
   let ae2 = getAudioObject(ngaAPI, "Main", "Effects");
-  ae2.prominenceInteractivity.prominence = 7.5;
+  ae2.prominenceInteractivity.setProminence(7.5);
   let ae3 = getAudioObject(ngaAPI, "Main", "Background");
-  ae3.prominenceInteractivity.prominence = -3.5;
+  ae3.prominenceInteractivity.setProminence(-3.5);
 }
             </pre>
           </aside>
