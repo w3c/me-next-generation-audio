@@ -20,7 +20,7 @@
         ],
         group: "me",
         github: "w3c/me-next-generation-audio",
-        xref: ["dom", "html", "infra", "webidl", "webcodecs", "webaudio", "mediastream-recording"]
+        xref: ["dom", "html", "infra", "webidl", "webcodecs", "webaudio", "mediastream-recording","wcag22"]
       };
     </script>
   </head>
@@ -81,11 +81,11 @@
       <section>
         <h3>Allowing the User to Select a [=Preselection=]</h3>
         <p>
-          One basic NGA feature is selecting a so-called <dfn data-lt="preselection">audio preselection</dfn>. An audio preselection is a set of predefined mix parameters for the included content components. Such components, also known as objects, of an audio program, can for example be the dialogue object, or the background audio object.
+          One basic NGA feature is selecting a so-called <dfn data-lt="preselection">audio preselection</dfn>. An audio preselection is a set of predefined mix parameters for the included content components. Such components, also known as <dfn data-lt="object">audio objects</dfn>, of an audio program, can for example be the dialogue object, or the background audio object.
         </p>
         <figure id="figure1">
           <img src="preselections-menu.png" />
-          <figcaption>Example for an NGA Menu offering different  Preselection (Default, Home Team, Away Team, Venue)</figcaption>
+          <figcaption>Example for an NGA Menu offering different Preselections (Default, Home Team, Away Team, Venue)</figcaption>
         </figure>
         <p>
           A user can choose from a variety of preselections on the playback side to enable a basic form of adaptation to their personal preference for rendering these components.
@@ -141,7 +141,7 @@ if (ngaAPI) {
           </p>
           <figure id="figure2">
             <img src="dialogue-gain-control.png" />
-            <figcaption>Example for a dialogue gain control</figcaption>
+            <figcaption>Example for a dialogue gain/[=prominence=] control</figcaption>
           </figure>
           <aside class="example" title="Example code for gain interactivity">
             <pre class="js">
@@ -170,7 +170,7 @@ if (ngaAPI) {
           </section>
         </section>
         <section>
-          <h3>Position Interactivity</h3>
+          <h3><dfn>Position Interactivity</dfn></h3>
           <p>
             With NGA, a content creator can allow position interactivity for individual content components. This feature can be used to further enhance [=Audio Description=] intelligibility. Users may use this functionality for better spatial separation between the main dialogue and the Audio Description.
           </p>
@@ -182,7 +182,7 @@ if (ngaAPI) {
           </ul>
           <figure id="figure3">
             <img src="position-controls.png" />
-            <figcaption>Example Application showing position interactivity controls for the commentator</figcaption>
+            <figcaption>Example Application showing [=position interactivity=] controls for the commentator</figcaption>
           </figure>
           <aside class="example" title="Example code for position interactivity">
             <pre class="js">
@@ -262,13 +262,13 @@ if (ngaAPI) {
             One enhanced NGA concept for better intelligibility of dialogue components in a TV program is called <dfn>narrative importance</dfn>, which allows better intelligibility by grouping audio content components into hierarchies based on their importance for understanding the scene.
           </p>
           <p>
-            For example, the highest hierarchy level contains elements that are essential for the narrative (dialogue, semantically rich effects, [=Audio Description=]), while lower hierarchy levels contain background music and non-essential effects. Multiple layers of importance can be created, with all necessary gain modifications applied simultaneously through a single control.
+            For example, the highest hierarchy level contains elements that are essential for the narrative (dialogue, semantically rich effects, [=Audio Description=]), while lower hierarchy levels contain background <a data-lt="music and effects">music and non-essential effects</a>. Multiple layers of importance can be created, with all necessary gain modifications applied simultaneously through a single control.
           </p>
           <figure id="figure5">
             <img src="narrative-importance.png" />
-            <figcaption>Example Application showing a narrative importance slider</figcaption>
+            <figcaption>Example Application showing a [=narrative importance=] slider</figcaption>
           </figure>
-          <aside class="example" title="Example code for [=narrative importance=] control">
+          <aside class="example" title="Example code for narrative importance control">
             <pre class="js">
 const video = document.getElementById("video");
 const ngaAPI = video.ngaAPI;
@@ -285,7 +285,7 @@ if (ngaAPI) {
           <section>
             <h3>Use case requirements on API</h3>
             <ul>
-              <li>exposing all content components including the interactivity ranges, a meaningful description for the end-user, and an attribute that allows grouping of content components (e.g. <abbr title="[=Music and Effects=]">M&E</abbr>, Dialogue, [=Audio Description=], etc.)</li>
+              <li>exposing all content components including the interactivity ranges, a meaningful description for the end-user, and an attribute that allows grouping of content components (e.g. <abbr title="Music and Effects">M&E</abbr>, Dialogue, [=Audio Description=], etc.)</li>
               <li>a setter/getter for changing the gain values of each content component</li>
             </ul>
           </section>
@@ -368,7 +368,7 @@ if (ngaAPI) {
         </section>
 
         <section>
-          <h3>JavaScript or WASM Decoder</h3>
+          <h3>JavaScript or <abbr title="Web Assembly">WASM</abbr> Decoder</h3>
           <p>
             A JavaScript or WASM-based decoder with output passed to the Web Audio API would face the same metadata bridging problems as the WebCodecs approach, plus additional drawbacks:
           </p>
@@ -399,13 +399,11 @@ if (ngaAPI) {
       <h2>Definitions</h2>
       <dl>
         <dt><dfn>audio description</dfn></dt>
+        <dd>narration added to the soundtrack to describe important visual details that cannot be understood from the main soundtrack alone [[WCAG22]]</dd>
+        <dt><dfn data-lt="Music and Effects">music and effects</dfn></dt>
         <dd>TODO insert definition</dd>
-        <dt><dfn>music and effects</dfn></dt>
-        <dd>TODO insert definition</dd>
-        <dt><dfn>object-based audio</dfn></dt>
-        <dd>Audio represented as individual objects with spatial properties rather than fixed channels.</dd>
-        <dt><dfn>position interactivity</dfn></dt>
-        <dd>The ability to change the spatial position of audio components within the sound stage.</dd>
+        <dt><dfn>object based audio</dfn></dt>
+        <dd>Audio represented using individual [=objects=] with spatial properties rather than fixed channels</dd>
         <dt><dfn>prominence</dfn></dt>
         <dd>The relative gain/volume of an audio component, often adjustable within creator-defined limits.</dd>
       </dl>
