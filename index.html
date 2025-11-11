@@ -328,8 +328,10 @@ if (ngaAPI) {
       </section>
     </section>
 
-      <h2>Considered Alternatives</h2>
     <section>
+      <h2>Gap Analysis</h2>
+
+      <p>The gap analysis explores whether existing APIs can be used to decode and personalize NGA content.</p>
 
       <section>
         <h3>WebCodecs + WebAudio Approach</h3>
@@ -337,11 +339,8 @@ if (ngaAPI) {
           The most obvious alternative would be to use a [[WEBCODECS]] {{AudioDecoder}} to decode NGA streams and [[WEBAUDIO]] {{AudioNode}}s to mix the resulting components.
           However, this approach has several critical limitations that make it unsuitable for real-world NGA applications.
         </p>
-        <p>
-          The most tangible limitation of a WebCodecs/WebAudio approach is that in this model, content is always in the clear. This is fundamentally incompatible with protected content models that are the backbone of high quality commercial media delivery on the internet.
-        </p>
-        <p>Further drawbacks include:</p>
         <ul>
+          <li><strong>Incompatible with protected content:</strong> The most tangible limitation of a WebCodecs/WebAudio approach is that in this model, content is always in the clear. This is fundamentally incompatible with protected content models that are the backbone of high quality commercial media delivery on the internet.</li>
           <li><strong>Limited Spatial Audio Support:</strong> While WebAudio can carry more than two channels, there is no way to indicate the spatial configuration of those channels.</li>
           <li><strong>No Object-Based Audio Support:</strong> WebCodecs and WebAudio are designed around channels and nodes, not audio objects with spatial properties that NGA requires.</li>
           <li><strong>Content Creator has no control of mix result:</strong> The integrated approach ensures content creators' intent is preserved through metadata-defined constraints on mixing parameters. Delivering audio as separate streams cannot guarantee that content is mixed as intended by the content creator.</li>
