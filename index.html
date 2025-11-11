@@ -258,54 +258,54 @@ if (ngaAPI) {
           </div>
         </section>
       </section>
+    <section>
+      <h2>
+        Constraints
+      </h2>
+      <p>
+        In the examples above and the API proposal below, a number of constraints on the API are implicitly assumed:
+      </p>
       <section>
-        <h2>
-          Constraints
-        </h2>
+        <h3>
+          Codec Agnostic
+        </h3>
         <p>
-          In the examples above and the API proposal below, a number of constraints on the API are implicitly assumed:
+          The API MUST be codec-agnostic. There are many NGA codecs from competing companies that all offer all or parts of the personalization use cases outlined above. The API should work for all of these, such that implementation has the highest value for browser implementers as well as application developers.
         </p>
-        <section>
-          <h3>
-            Codec Agnostic
-          </h3>
-          <p>
-            The API MUST be codec-agnostic. There are many NGA codecs from competing companies that all offer all or parts of the personalization use cases outlined above. The API should work for all of these, such that implementation has the highest value for browser implementers as well as application developers.
-          </p>
-        </section>
-        <section>
-          <h3>
-            Protected Media Compatibility
-          </h3>
-          <p>
-            The API MUST NOT preclude the use of protected media. Most NGA codecs are used for commercial content, much of which is rights protected and therefore DRM protected. In technical terms, this likely means that the API has to work when media is played back using EME.
-          </p>
-        </section>
-        <section>
-          <h3>
-            Multiple Media Streams
-          </h3>
-          <p>
-            The API MUST work when multiple media streams are being rendered/decoded. In most media playback scenarios, there is at least one video and one audio codec being used. Since personalization options are typically tied to a specific media stream, the API needs to be specific to individual media streams.
-          </p>
-        </section>
-        <section>
-          <h3>
-            Real-time Operation
-          </h3>
-          <p>
-            The API MUST be usable while media is playing and MUST be operable asynchronously to the media. When a personalization change is made, the user would expect the change to be effective immediately, not when the tip of the media queue is eventually rendered.
-          </p>
-        </section>
-        <section>
-          <h3>
-            Non-blocking Hardware Access
-          </h3>
-          <p>
-            The API MUST NOT block on hardware/codec access. The personalization features often require setting parameters on either the decoder or the rendering pipeline, which may run in different threads or on different hardware. Calls to set or get personalization features should return immediately, likely with a promise.
-          </p>
-        </section>
       </section>
+      <section>
+        <h3>
+          Protected Media Compatibility
+        </h3>
+        <p>
+          The API MUST NOT preclude the use of protected media. Most NGA codecs are used for commercial content, much of which is rights protected and therefore DRM protected. In technical terms, this likely means that the API has to work when media is played back using EME.
+        </p>
+      </section>
+      <section>
+        <h3>
+          Multiple Media Streams
+        </h3>
+        <p>
+          The API MUST work when multiple media streams are being rendered/decoded. In most media playback scenarios, there is at least one video and one audio codec being used. Since personalization options are typically tied to a specific media stream, the API needs to be specific to individual media streams.
+        </p>
+      </section>
+      <section>
+        <h3>
+          Real-time Operation
+        </h3>
+        <p>
+          The API MUST be usable while media is playing and MUST be operable asynchronously to the media. When a personalization change is made, the user would expect the change to be effective immediately, not when the tip of the media queue is eventually rendered.
+        </p>
+      </section>
+      <section>
+        <h3>
+          Non-blocking Hardware Access
+        </h3>
+        <p>
+          The API MUST NOT block on hardware/codec access. The personalization features often require setting parameters on either the decoder or the rendering pipeline, which may run in different threads or on different hardware. Calls to set or get personalization features should return immediately, likely with a promise.
+        </p>
+      </section>
+    </section>
     <section>
       <h2>
         Relationship to Web Audio and WebCodecs APIs
@@ -352,22 +352,22 @@ if (ngaAPI) {
         TODO: describe more limitations
       </p>
     </section>
-  <section id="conformance"></section>
-  <section class="informative">
-    <h2>
-      Examples
-    </h2>
-    <p>
-      This section contains example solutions for various use cases using the proposed extensions. These are not the only solutions to these use cases.
-    </p>
-    <section>
-      <h3>
-        Basic Preselection Selection
-      </h3>
-      <p class="exampledescription">
-        This example shows how to select a preselection by label.
+    <section id="conformance"></section>
+    <section class="informative">
+      <h2>
+        Examples
+      </h2>
+      <p>
+        This section contains example solutions for various use cases using the proposed extensions. These are not the only solutions to these use cases.
       </p>
-      <pre class="example highlight">
+      <section>
+        <h3>
+          Basic Preselection Selection
+        </h3>
+        <p class="exampledescription">
+          This example shows how to select a preselection by label.
+        </p>
+        <pre class="example highlight">
 function getPreselectionByLabel(ngaAPI, preselectionLabel) {
   const preselections = ngaAPI.preselections;
   for (let i = 0; i &lt; preselections.length; ++i) {
@@ -390,16 +390,16 @@ if (ngaAPI) {
     ngaAPI.preselections.selectedPreselection = preselection;
   }
 }
-      </pre>
-    </section>
-    <section>
-      <h3>
-        Gain Interactivity
-      </h3>
-      <p class="exampledescription">
-        This example demonstrates how to adjust the gain of a specific audio element.
-      </p>
-      <pre class="example highlight">
+        </pre>
+      </section>
+      <section>
+        <h3>
+          Gain Interactivity
+        </h3>
+        <p class="exampledescription">
+          This example demonstrates how to adjust the gain of a specific audio element.
+        </p>
+        <pre class="example highlight">
 function getAudioObject(ngaAPI, preselectionLabel, aeLabel) {
   // As defined in the first use-case
   const preselection = getPreselectionByLabel(ngaAPI, preselectionLabel);
@@ -432,16 +432,16 @@ if (ngaAPI) {
     }
   }
 }
-        </pre>
-      </section>
-      <section>
-        <h3>
-          Position Interactivity
-        </h3>
-        <p class="exampledescription">
-          This example shows how to adjust the spatial position of an audio element.
-        </p>
-        <pre class="example highlight">
+          </pre>
+        </section>
+        <section>
+          <h3>
+            Position Interactivity
+          </h3>
+          <p class="exampledescription">
+            This example shows how to adjust the spatial position of an audio element.
+          </p>
+          <pre class="example highlight">
 const video = document.getElementById("video");
 const ngaAPI = video.ngaAPI;
 if (ngaAPI) {
@@ -456,16 +456,16 @@ if (ngaAPI) {
     }
   }
 }
-        </pre>
-      </section>
-      <section>
-        <h3>
-          Audio Element Selection
-        </h3>
-        <p class="exampledescription">
-          This example demonstrates selecting between multiple audio elements.
-        </p>
-        <pre class="example highlight">
+          </pre>
+        </section>
+        <section>
+          <h3>
+            Audio Element Selection
+          </h3>
+          <p class="exampledescription">
+            This example demonstrates selecting between multiple audio elements.
+          </p>
+          <pre class="example highlight">
 function getAudioObjectSelection(ngaAPI, preselectionLabel, aesLabel) {
   // As defined in the first use case
   const preselection = getPreselectionByLabel(ngaAPI, preselectionLabel);
@@ -503,16 +503,16 @@ if (ngaAPI) {
     }
   }
 }
-        </pre>
-      </section>
-      <section>
-        <h3>
-          Narrative Importance Control
-        </h3>
-        <p class="exampledescription">
-          This example shows how to control multiple audio attributes simultaneously for narrative importance.
-        </p>
-        <pre class="example highlight">
+          </pre>
+        </section>
+        <section>
+          <h3>
+            Narrative Importance Control
+          </h3>
+          <p class="exampledescription">
+            This example shows how to control multiple audio attributes simultaneously for narrative importance.
+          </p>
+          <pre class="example highlight">
 const video = document.getElementById("video");
 const ngaAPI = video.ngaAPI;
 if (ngaAPI) {
@@ -524,9 +524,9 @@ if (ngaAPI) {
   let ae3 = getAudioObject(ngaAPI, "Main", "Background");
   ae3.prominenceInteractivity.prominence = -3.5;
 }
-        </pre>
+          </pre>
+        </section>
       </section>
-    </section>
     <section id="acknowledgements">
       <h2>
         Acknowledgments
