@@ -120,9 +120,9 @@
           <pre class="highlight">
 function getPreselectionByLabel(ngaAPI, preselectionLabel) {
   const preselections = ngaAPI.preselections;
-  for (let i = 0; i < preselections.length; ++i) {
+  for (let i = 0; i &lt; preselections.length; ++i) {
     // search for a specific preselection
-    for (let j = 0; j < preselections[i].labels.length; ++j) {
+    for (let j = 0; j &lt; preselections[i].labels.length; ++j) {
       for (const [key, value] in preselections[i].labels[j].label) {
         if (value === preselectionLabel) {
           return ngaAPI.preselections[i];
@@ -163,7 +163,7 @@ if (ngaAPI) {
     const ae = getAudioObject(ngaAPI, "Standard", "Commentator");
     if (ae.prominenceInteractivity) {
       if (ae.prominenceInteractivity.minProminence &&
-          ae.prominenceInteractivity.minProminence <= 7.5 &&
+          ae.prominenceInteractivity.minProminence &lt;= 7.5 &&
           ae.prominenceInteractivity.maxProminence &&
           ae.prominenceInteractivity.maxProminence >= 7.5) {
       ae.prominenceInteractivity.prominence = 7.5;
@@ -197,7 +197,7 @@ if (ngaAPI) {
   const ae = getAudioObject(ngaAPI, "Standard", "Commentator");
   if (ae.positionInteractivity) {
     if (ae.positionInteractivity.minElevation &&
-        ae.positionInteractivity.minElevation <= 90.0 &&
+        ae.positionInteractivity.minElevation &lt;= 90.0 &&
         ae.positionInteractivity.maxElevation &&
         ae.positionInteractivity.maxElevation >= 90.0) {
     ae.positionInteractivity.elevation = 90.0;
@@ -227,9 +227,9 @@ const ngaAPI = video.ngaAPI;
 if (ngaAPI) {
   const aes = getAudioObjectSelection(ngaAPI, "Standard", "Commentators");
   if (aes) {
-    for (let i = 0; i < aes.audioElements.length; ++i) {
+    for (let i = 0; i &lt; aes.audioElements.length; ++i) {
       const ae = aes.audioElements[i];
-      for (let j = 0; j < ae.labels.length; ++j) {
+      for (let j = 0; j &lt; ae.labels.length; ++j) {
         for (const [key, value] in ae.labels[j].label) {
           if (value === "English") {
             aes.selectedAudioElement = ae;
@@ -382,9 +382,9 @@ if (ngaAPI) {
       <pre class="example highlight">
 function getPreselectionByLabel(ngaAPI, preselectionLabel) {
   const preselections = ngaAPI.preselections;
-  for (let i = 0; i < preselections.length; ++i) {
+  for (let i = 0; i &lt; preselections.length; ++i) {
     // search for a specific preselection
-    for (let j = 0; j < preselections[i].labels.length; ++j) {
+    for (let j = 0; j &lt; preselections[i].labels.length; ++j) {
       for (const [key, value] of preselections[i].labels[j].label) {
         if (value === preselectionLabel) {
           return ngaAPI.preselections[i];
@@ -418,10 +418,10 @@ function getAudioObject(ngaAPI, preselectionLabel, aeLabel) {
   if (!preselection) {
     return null;
   }
-  for (let i = 0; i < preselection.audioElements.length; ++i) {
+  for (let i = 0; i &lt; preselection.audioElements.length; ++i) {
     // search for a specific audio element
     const ae = preselection.audioElements[i];
-    for (let j = 0; j < ae.labels.length; ++j) {
+    for (let j = 0; j &lt; ae.labels.length; ++j) {
       for (const [key, value] of ae.labels[j].label) {
         if (value === aeLabel) {
         return ae;
@@ -437,7 +437,7 @@ if (ngaAPI) {
   const ae = getAudioObject(ngaAPI, "Standard", "Commentator");
   if (ae.prominenceInteractivity) {
     if (ae.prominenceInteractivity.minProminence &&
-        ae.prominenceInteractivity.minProminence <= 7.5 &&
+        ae.prominenceInteractivity.minProminence &lt;= 7.5 &&
         ae.prominenceInteractivity.maxProminence &&
         ae.prominenceInteractivity.maxProminence >= 7.5) {
       ae.prominenceInteractivity.prominence = 7.5;
@@ -461,7 +461,7 @@ if (ngaAPI) {
   const ae = getAudioObject(ngaAPI, "Standard", "Commentator");
   if (ae.positionInteractivity) {
     if (ae.positionInteractivity.minElevation &&
-        ae.positionInteractivity.minElevation <= 90.0 &&
+        ae.positionInteractivity.minElevation &lt;= 90.0 &&
         ae.positionInteractivity.maxElevation &&
         ae.positionInteractivity.maxElevation >= 90.0) {
       ae.positionInteractivity.elevation = 90.0;
@@ -484,10 +484,10 @@ function getAudioObjectSelection(ngaAPI, preselectionLabel, aesLabel) {
   if (!preselection) {
     return null;
   }
-  for (let i = 0; i < preselection.audioElementSelections.length; ++i) {
+  for (let i = 0; i &lt; preselection.audioElementSelections.length; ++i) {
     // search for a specific audio element selection
     const aes = preselection.audioElementSelections[i];
-    for (let j = 0; j < aes.labels.length; ++j) {
+    for (let j = 0; j &lt; aes.labels.length; ++j) {
       for (const [key, value] of aes.labels[j].label) {
         if (value === aesLabel) {
           return aes;
@@ -502,9 +502,9 @@ const ngaAPI = video.ngaAPI;
 if (ngaAPI) {
   const aes = getAudioObjectSelection(ngaAPI, "Standard", "Commentators");
   if (aes) {
-    for (let i = 0; i < aes.audioElements.length; ++i) {
+    for (let i = 0; i &lt; aes.audioElements.length; ++i) {
       const ae = aes.audioElements[i];
-      for (let j = 0; j < ae.labels.length; ++j ) {
+      for (let j = 0; j &lt; ae.labels.length; ++j ) {
         for (const [key, value] of ae.labels[j].label) {
           if (value === "English") {
             aes.selectedAudioElement = ae;
