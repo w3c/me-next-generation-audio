@@ -111,9 +111,8 @@
           <li>Preselections with associated components such as audio description</li>
           <li>Alternative audio mixes where dialogue gain is increased for better intelligibility for hearing impaired people</li>
         </ul>
-        <div class="example">
-          <p>Example code for preselection selection:</p>
-          <pre class="highlight">
+        <aside class="example" title="Example code for preselection selection">
+          <pre class="js">
 function getPreselectionByLabel(ngaAPI, preselectionLabel) {
   const preselections = ngaAPI.preselections;
   for (let i = 0; i &lt; preselections.length; ++i) {
@@ -138,7 +137,7 @@ if (ngaAPI) {
   }
 }
             </pre>
-          </div>
+          </aside>
           <section>
             <h3>Use case requirements on API</h3>
             <ul>
@@ -155,13 +154,12 @@ if (ngaAPI) {
           <p>
             One example application is changing the gain of a spoken language component for better intelligibility, e.g., the commentator, Audio Description, or the main dialogue of a movie. To offer this functionality, a content creator could author the metadata during production to allow gain interactivity for the component within a defined range (e.g., -6 to +12 dB).
           </p>
-          <div class="example">
-            <p>Example code for gain interactivity:</p>
-            <pre class="highlight">
           <figure id="figure2">
             <img src="dialogue-gain-control.png" />
             <figcaption>Example for a dialogue gain control</figcaption>
           </figure>
+          <aside class="example" title="Example code for gain interactivity">
+            <pre class="js">
   const video = document.getElementById("video");
   const ngaAPI = video.ngaAPI;
   if (ngaAPI) {
@@ -176,7 +174,7 @@ if (ngaAPI) {
     }
   }
             </pre>
-          </div>
+          </aside>
           <section>
             <h3>Use case requirements on API</h3>
             <ul>
@@ -199,13 +197,12 @@ if (ngaAPI) {
             <li>Moving PA announcer audio objects in sports events to overhead speakers for enhanced stadium atmosphere</li>
             <li>Positioning different commentators to left and right for more natural conversation experience</li>
           </ul>
-          <div class="example">
-            <p>Example code for position interactivity:</p>
-            <pre class="highlight">
           <figure id="figure3">
             <img src="position-controls.png" />
             <figcaption>Example Application showing position interactivity controls for the commentator</figcaption>
           </figure>
+          <aside class="example" title="Example code for position interactivity">
+            <pre class="js">
 const video = document.getElementById("video");
 const ngaAPI = video.ngaAPI;
 if (ngaAPI) {
@@ -220,7 +217,7 @@ if (ngaAPI) {
   }
 }
             </pre>
-          </div>
+          </aside>
           <section>
             <h3>Use case requirements on API</h3>
             <ul>
@@ -240,13 +237,12 @@ if (ngaAPI) {
             <li>The home or away commentator in a sports event</li>
             <li>Optional content components, e.g. Audio Description</li>
           </ul>
-          <div class="example">
-            <p>Example code for audio element selection:</p>
-            <pre class="highlight">
           <figure id="figure4">
             <img src="language-selection.png" />
             <figcaption>Example Application showing language selection and gain interactivity controls for the Commentator</figcaption>
           </figure>
+          <aside class="example" title="Example code for audio element selection">
+            <pre class="js">
 const video = document.getElementById("video");
 const ngaAPI = video.ngaAPI;
 if (ngaAPI) {
@@ -266,7 +262,7 @@ if (ngaAPI) {
   }
 }
             </pre>
-          </div>
+          </aside>
           <section>
             <h3>Use case requirements on API</h3>
             <ul>
@@ -284,13 +280,12 @@ if (ngaAPI) {
           <p>
             For example, the highest hierarchy level contains elements that are essential for the narrative (dialogue, semantically rich effects, Audio Description), while lower hierarchy levels contain background music and non-essential effects. Multiple layers of importance can be created, with all necessary gain modifications applied simultaneously through a single control.
           </p>
-          <div class="example">
-            <p>Example code for narrative importance control:</p>
-            <pre class="highlight">
           <figure id="figure5">
             <img src="narrative-importance.png" />
             <figcaption>Example Application showing a narrative importance slider</figcaption>
           </figure>
+          <aside class="example" title="Example code for [=narrative importance=] control">
+            <pre class="js">
 const video = document.getElementById("video");
 const ngaAPI = video.ngaAPI;
 if (ngaAPI) {
@@ -302,7 +297,7 @@ if (ngaAPI) {
   ae3.prominenceInteractivity.prominence = -3.5;
 }
             </pre>
-          </div>
+          </aside>
           <section>
             <h3>Use case requirements on API</h3>
             <ul>
