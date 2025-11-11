@@ -89,9 +89,7 @@
         The following use cases are all audio centric, but it should be noted that there exist video specific use cases as well. As time goes on, this document might pick up further use cases that are not audio specific.
       </p>
       <section>
-        <h3>
-          Use Case 1: Allowing the User to Select a Preselection
-        </h3>
+        <h3>Allowing the User to Select a [=Preselection=]</h3>
         <p>
           One basic NGA feature is selecting a so-called audio preselection. An audio preselection is a set of predefined mix parameters for the included content components. Such components, also known as objects, of an audio program, can for example be the dialogue object, or the background audio object.
         </p>
@@ -133,9 +131,7 @@ if (ngaAPI) {
           </div>
         </section>
         <section>
-          <h3>
-            Use Case 2: Gain Interactivity
-          </h3>
+          <h3>Gain Interactivity</h3>
           <p>
             With an NGA codec, content creators can enable gain adjustment for certain content components. Users may set these gain values to their preference, within limits chosen by the creator.
           </p>
@@ -162,9 +158,7 @@ if (ngaAPI) {
           </div>
         </section>
         <section>
-          <h3>
-            Use Case 3: Position Interactivity
-          </h3>
+          <h3>Position Interactivity</h3>
           <p>
             With NGA, a content creator can allow position interactivity for individual content components. This feature can be used to further enhance Audio Description intelligibility. Users may use this functionality for better spatial separation between the main dialogue and the Audio Description.
           </p>
@@ -196,9 +190,7 @@ if (ngaAPI) {
           </div>
         </section>
         <section>
-          <h3>
-            Use Case 4: Selection Among Multiple Audio Elements
-          </h3>
+          <h3>Selection Among Multiple Audio Elements</h3>
           <p>
             NGA codecs enable the ability to select between multiple content components. This is typically a choice of different content alternatives, where only exactly one can be active at a time. Examples include:
           </p>
@@ -232,9 +224,7 @@ if (ngaAPI) {
           </div>
         </section>
         <section>
-          <h3>
-            Use Case 5: Controlling Different Audio Attributes Simultaneously
-          </h3>
+          <h3>Controlling Different Audio Attributes Simultaneously</h3>
           <p>
             One enhanced NGA concept for better intelligibility of dialogue components in a TV program is called "narrative importance", which allows better intelligibility by grouping audio content components into hierarchies based on their importance for understanding the scene.
           </p>
@@ -259,48 +249,36 @@ if (ngaAPI) {
         </section>
       </section>
     <section>
-      <h2>
-        Constraints
-      </h2>
+      <h2>Constraints</h2>
       <p>
         In the examples above and the API proposal below, a number of constraints on the API are implicitly assumed:
       </p>
       <section>
-        <h3>
-          Codec Agnostic
-        </h3>
+        <h3>Codec Agnostic</h3>
         <p>
           The API MUST be codec-agnostic. There are many NGA codecs from competing companies that all offer all or parts of the personalization use cases outlined above. The API should work for all of these, such that implementation has the highest value for browser implementers as well as application developers.
         </p>
       </section>
       <section>
-        <h3>
-          Protected Media Compatibility
-        </h3>
+        <h3>Protected Media Compatibility</h3>
         <p>
           The API MUST NOT preclude the use of protected media. Most NGA codecs are used for commercial content, much of which is rights protected and therefore DRM protected. In technical terms, this likely means that the API has to work when media is played back using EME.
         </p>
       </section>
       <section>
-        <h3>
-          Multiple Media Streams
-        </h3>
+        <h3>Multiple Media Streams</h3>
         <p>
           The API MUST work when multiple media streams are being rendered/decoded. In most media playback scenarios, there is at least one video and one audio codec being used. Since personalization options are typically tied to a specific media stream, the API needs to be specific to individual media streams.
         </p>
       </section>
       <section>
-        <h3>
-          Real-time Operation
-        </h3>
+        <h3>Real-time Operation</h3>
         <p>
           The API MUST be usable while media is playing and MUST be operable asynchronously to the media. When a personalization change is made, the user would expect the change to be effective immediately, not when the tip of the media queue is eventually rendered.
         </p>
       </section>
       <section>
-        <h3>
-          Non-blocking Hardware Access
-        </h3>
+        <h3>Non-blocking Hardware Access</h3>
         <p>
           The API MUST NOT block on hardware/codec access. The personalization features often require setting parameters on either the decoder or the rendering pipeline, which may run in different threads or on different hardware. Calls to set or get personalization features should return immediately, likely with a promise.
         </p>
