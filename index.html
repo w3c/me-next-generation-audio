@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Next Generation Audio personalization Interface Based on ISOBMFF Preselections</title>
+    <title>Next Generation Audio personalization Interface</title>
     <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
     <script class='remove'>
       // See https://github.com/w3c/respec/wiki/ for how to configure ReSpec
@@ -186,12 +186,12 @@ if (ngaAPI) {
         <section>
           <h3>Position Interactivity</h3>
           <p>
-            With NGA, a content creator can allow position interactivity for individual content components. This feature can be used to further enhance Audio Description intelligibility. Users may use this functionality for better spatial separation between the main dialogue and the Audio Description.
+            With NGA, a content creator can allow position interactivity for individual content components. This feature can be used to further enhance [=Audio Description=] intelligibility. Users may use this functionality for better spatial separation between the main dialogue and the Audio Description.
           </p>
           <p>Examples include:</p>
           <ul>
             <li>Spatially panning Audio Description to rear-right speaker position for visually impaired users</li>
-            <li>Moving PA announcer audio objects in sports events to overhead speakers for enhanced stadium atmosphere</li>
+            <li>Moving <abbr title="public address">PA</abbr> announcer audio objects in sports events to overhead speakers for enhanced stadium atmosphere</li>
             <li>Positioning different commentators to left and right for more natural conversation experience</li>
           </ul>
           <figure id="figure3">
@@ -299,7 +299,7 @@ if (ngaAPI) {
           <section>
             <h3>Use case requirements on API</h3>
             <ul>
-              <li>exposing all content components including the interactivity ranges, a meaningful description for the end-user, and an attribute that allows grouping of content components (e.g. Music, Dialogue, Audio Description, etc.)</li>
+              <li>exposing all content components including the interactivity ranges, a meaningful description for the end-user, and an attribute that allows grouping of content components (e.g. <abbr title="[=Music and Effects=]">M&E</abbr>, Dialogue, [=Audio Description=], etc.)</li>
               <li>a setter/getter for changing the gain values of each content component</li>
             </ul>
           </section>
@@ -392,6 +392,15 @@ if (ngaAPI) {
       <p>
         The editors would like to thank all contributors to this draft and the members of the W3C Media Entertainment Interest Group for their valuable feedback and contributions.
       </p>
+    </section>
+    <section class="appendix">
+      <h2>Definitions</h2>
+      <dl class="">
+        <dt><dfn>audio description</dfn></dt>
+        <dd>TODO insert definition</dd>
+        <dt><dfn>music and effects</dfn></dt>
+        <dd>TODO insert definition</dd>
+      </dl>
     </section>
   </body>
 </html>
