@@ -91,22 +91,24 @@
       <p>
         The next section will textually describe those audio use-cases, for a more immersive "description" the reader is directed to <a href="https://youtu.be/fxsvVcIOiJA">https://youtu.be/fxsvVcIOiJA</a>.
       </p>
+
       <section>
         <h3>Allowing the User to Select a [=Preselection=]</h3>
         <p>
-          One basic NGA feature is selecting a so-called audio preselection. An audio preselection is a set of predefined mix parameters for the included content components. Such components, also known as objects, of an audio program, can for example be the dialogue object, or the background audio object.
+          One basic NGA feature is selecting a so-called <dfn data-lt="preselection">audio preselection</dfn>. An audio preselection is a set of predefined mix parameters for the included content components. Such components, also known as objects, of an audio program, can for example be the dialogue object, or the background audio object.
         </p>
         <figure id="figure1">
           <img src="preselections-menu.png" />
           <figcaption>Example for an NGA Menu offering different  Preselection (Default, Home Team, Away Team, Venue)</figcaption>
         </figure>
         <p>
-          A user can choose from a variety of preselections on the playback side to enable a basic form of adaptation to their personal preference for rendering these components. Examples include:
+          A user can choose from a variety of preselections on the playback side to enable a basic form of adaptation to their personal preference for rendering these components.
         </p>
+        <p>Examples include:</p>
         <ul>
           <li>Preselections where background audio is combined with different dialogue tracks (one preselection per language)</li>
-          <li>Preselections with associated components such as audio description</li>
-          <li>Alternative audio mixes where dialogue gain is increased for better intelligibility for hearing impaired people</li>
+          <li>Preselections with associated components such as [=audio description=]</li>
+          <li>Alternative audio mixes where dialogue gain is increased for better intelligibility for people that are hard of hearing</li>
         </ul>
         <aside class="example" title="Example code for preselection selection">
           <pre class="js">
@@ -149,7 +151,7 @@ if (ngaAPI) {
             With an NGA codec, content creators can enable gain adjustment for certain content components. Users may set these gain values to their preference, within limits chosen by the creator.
           </p>
           <p>
-            One example application is changing the gain of a spoken language component for better intelligibility, e.g., the commentator, Audio Description, or the main dialogue of a movie. To offer this functionality, a content creator could author the metadata during production to allow gain interactivity for the component within a defined range (e.g., -6 to +12 dB).
+            One example application is changing the gain of a spoken language component for better intelligibility, e.g., the commentator, [=Audio Description=], or the main dialogue of a movie. To offer this functionality, a content creator could author the metadata during production to allow gain interactivity for the component within a defined range (e.g., -6 to +12 dB).
           </p>
           <figure id="figure2">
             <img src="dialogue-gain-control.png" />
@@ -186,9 +188,7 @@ if (ngaAPI) {
           <p>
             With NGA, a content creator can allow position interactivity for individual content components. This feature can be used to further enhance Audio Description intelligibility. Users may use this functionality for better spatial separation between the main dialogue and the Audio Description.
           </p>
-          <p>
-            Examples include:
-          </p>
+          <p>Examples include:</p>
           <ul>
             <li>Spatially panning Audio Description to rear-right speaker position for visually impaired users</li>
             <li>Moving PA announcer audio objects in sports events to overhead speakers for enhanced stadium atmosphere</li>
@@ -227,8 +227,9 @@ if (ngaAPI) {
         <section>
           <h3>Selection Among Multiple Audio Elements</h3>
           <p>
-            NGA codecs enable the ability to select between multiple content components. This is typically a choice of different content alternatives, where only exactly one can be active at a time. Examples include:
+            NGA codecs enable the ability to select between multiple content components. This is typically a choice of different content alternatives, where only exactly one can be active at a time.
           </p>
+          <p>Examples include:</p>
           <ul>
             <li>The language of the dialogue in a movie</li>
             <li>The home or away commentator in a sports event</li>
@@ -272,10 +273,10 @@ if (ngaAPI) {
         <section>
           <h3>Controlling Different Audio Attributes Simultaneously</h3>
           <p>
-            One enhanced NGA concept for better intelligibility of dialogue components in a TV program is called "narrative importance", which allows better intelligibility by grouping audio content components into hierarchies based on their importance for understanding the scene.
+            One enhanced NGA concept for better intelligibility of dialogue components in a TV program is called <dfn>narrative importance</dfn>, which allows better intelligibility by grouping audio content components into hierarchies based on their importance for understanding the scene.
           </p>
           <p>
-            For example, the highest hierarchy level contains elements that are essential for the narrative (dialogue, semantically rich effects, Audio Description), while lower hierarchy levels contain background music and non-essential effects. Multiple layers of importance can be created, with all necessary gain modifications applied simultaneously through a single control.
+            For example, the highest hierarchy level contains elements that are essential for the narrative (dialogue, semantically rich effects, [=Audio Description=]), while lower hierarchy levels contain background music and non-essential effects. Multiple layers of importance can be created, with all necessary gain modifications applied simultaneously through a single control.
           </p>
           <figure id="figure5">
             <img src="narrative-importance.png" />
@@ -336,7 +337,7 @@ if (ngaAPI) {
       <section>
         <h3>Non-blocking Hardware Access</h3>
         <p>
-          The API MUST NOT block on hardware/codec access. The personalization features often require setting parameters on either the decoder or the rendering pipeline, which may run in different threads or on different hardware. Calls to set or get personalization features should return immediately, likely with a promise.
+          The API MUST NOT block on hardware/codec access. The personalization features often require setting parameters on either the decoder or the rendering pipeline, which may run in different threads or on different hardware. Calls to set or get personalization features SHOULD return immediately, likely with a promise.
         </p>
       </section>
     </section>
@@ -381,9 +382,6 @@ if (ngaAPI) {
       </p>
       <p>
         A major drawback is that this approach would be incompatible with DRM protected media which would exclude most commercial content. Also, many codecs (specifically video codecs) would be too complex to be implemented in real-time on most platforms.
-      </p>
-      <p class="issue">
-        TODO: describe more limitations
       </p>
     </section>
     <section id="conformance"></section>
