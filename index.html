@@ -1,40 +1,414 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title>Next Generation Audio</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Next Generation Audio personalization Interface</title>
     <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
     <script class='remove'>
       // See https://github.com/w3c/respec/wiki/ for how to configure ReSpec
       var respecConfig = {
-        specStatus: "ED",
-        shortName: "next-generation-audio",
-        editors: [{
-          name: "null"
-        }],
+        // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
+        specStatus: "NOTE",
+        // the specification's short name, as in https://www.w3.org/TR/short-name/
+        shortName: "me-next-generation-audio-personalization",
+        edDraftURI: "https://w3c.github.io/me-next-generation-audio-personalization/",
+        // editors, add as many as you like
+        // only "name" is required
+        editors: [
+          { name: "Wolfgang Schildbach", company: "Dolby Laboratories", companyURL: "https://dolby.com/" },
+          { name: "Bernd Czelhan", company: "Fraunhofer IIS", companyURL: "https://www.iis.fhg.de/" }
+        ],
         group: "me",
-        github: "w3c/me-next-generation-audio"
+        github: "w3c/me-next-generation-audio",
+        xref: ["dom", "html", "infra", "webidl", "webcodecs", "webaudio", "mediastream-recording"]
       };
     </script>
   </head>
   <body>
     <section id="abstract">
       <p>
-        This specification does neat stuff.
+        This document describes use cases and requirements for a proposed API for a Next Generation Audio (<abbr title="Next Generation Audio">NGA</abbr>) interface in a web environment, enabling web applications to provide user interfaces to control NGA experiences.
+      </p>
+      <p>
+        In contrast to traditional audio codecs (e.g. AAC), NGA codecs utilize new ways of object-based audio coding and in-band transmission of a variety of metadata to control the playback-side rendering of audio content. The proposed API exposes information describing NGA scene metadata and allows interacting with the respective codec to individualize the user experience during audio playback.
+      </p>
+      <p>
+        The API is envisioned to be codec-agnostic, supporting various NGA implementations while maintaining compatibility with protected media content.
       </p>
     </section>
     <section id="sotd">
       <p>
-        This is an unofficial proposal.
+        This document is a work in progress and serves as a base for discussion. Feedback is highly appreciated, particularly regarding the optimal placement of the API within the web platform architecture.
       </p>
     </section>
-
-    <section id="introduction">
-      <h2>Introduction</h2>
+    <section>
+      <h2>
+        Introduction
+      </h2>
       <p>
-        See <a href="https://github.com/w3c/respec/wiki/User's-Guide">ReSpec's user guide</a>
-        for how toget started!
+        In contrast to traditional audio codecs (e.g. AAC), Next Generation Audio (NGA) codecs utilize new ways of object-based audio coding and in-band transmission of a variety of metadata to control the playback-side rendering of audio content. Object-based audio coding enables content providers to deliver individual audio components to the playback-side in a flexible way. The components can be combined into a single bitstream or separated into multiple bitstreams.
       </p>
+      <p>
+        NGA codecs provide a rich set of metadata and allow users to change certain aspects of an audio presentation, including:
+      </p>
+      <ul>
+        <li>Dialogue enhancement to increase the intelligibility of dialogue in a movie</li>
+        <li>Dynamic range control to adjust the presentation to different listening environments</li>
+        <li>Advanced language selection</li>
+        <li>Spatial audio positioning and interactivity</li>
+      </ul>
+      <p>
+        An extensive set of standardized NGA metadata is crucial for adapting to the given listening environment and therefore for delivering an immersive audio experience, enabling the system to adapt to user preferences, and enabling advanced user interaction possibilities. The same set of metadata that allows the user to interact with the content can be used to facilitate corresponding application interfaces.
+      </p>
+      <p> 
+        Maybe the most basic metadata in the context of NGA is a grouping of objects and settings into so called [=preselections=]. [=Preselections=] are pre-baked combinations of object gain settings which can be activated or deactivated, and effectively set defaults for the parameters underneath. Preselections can also expose more customization options, e.g. changing the dialogue loudness within a range based on the metadata, and thus serve as the entry point for any further customization.
+      </p>
+      <p>
+        The envisioned API should expose information describing said metadata of the NGA scene and should allow interacting with the respective codec to individualize the user experience during audio playback. This document does not prejudge on where the API should ideally be placed. For example, it could be added directly to HTMLMediaElement or to the corresponding AudioTrack object representing an NGA track.
+      </p>
+    </section>
+    <section>
+      <h2>
+        Use Cases
+      </h2>
+      <p>
+        The following use cases are all audio centric, but it should be noted that there exist video specific use cases as well. As time goes on, this document might pick up further use cases that are not audio specific.
+      </p>
+      <p>
+        The next section will textually describe those audio use-cases, for a more immersive "description" the reader is directed to <a href="https://youtu.be/fxsvVcIOiJA">https://youtu.be/fxsvVcIOiJA</a>.
+      </p>
+
+      <section>
+        <h3>Allowing the User to Select a [=Preselection=]</h3>
+        <p>
+          One basic NGA feature is selecting a so-called <dfn data-lt="preselection">audio preselection</dfn>. An audio preselection is a set of predefined mix parameters for the included content components. Such components, also known as objects, of an audio program, can for example be the dialogue object, or the background audio object.
+        </p>
+        <figure id="figure1">
+          <img src="preselections-menu.png" />
+          <figcaption>Example for an NGA Menu offering different  Preselection (Default, Home Team, Away Team, Venue)</figcaption>
+        </figure>
+        <p>
+          A user can choose from a variety of preselections on the playback side to enable a basic form of adaptation to their personal preference for rendering these components.
+        </p>
+        <p>Examples include:</p>
+        <ul>
+          <li>Preselections where background audio is combined with different dialogue tracks (one preselection per language)</li>
+          <li>Preselections with associated components such as [=audio description=]</li>
+          <li>Alternative audio mixes where dialogue gain is increased for better intelligibility for people that are hard of hearing</li>
+        </ul>
+        <aside class="example" title="Example code for preselection selection">
+          <pre class="js">
+function getPreselectionByLabel(ngaAPI, preselectionLabel) {
+  const preselections = ngaAPI.preselections;
+  for (let i = 0; i &lt; preselections.length; ++i) {
+    // search for a specific preselection
+    for (let j = 0; j &lt; preselections[i].labels.length; ++j) {
+      for (const [key, value] in preselections[i].labels[j].label) {
+        if (value === preselectionLabel) {
+          return ngaAPI.preselections[i];
+        }
+      }
+    }
+  }
+  return null;
+}
+
+const video = document.getElementById("video");
+const ngaAPI = video.ngaAPI;
+if (ngaAPI) {
+  const preselection = getPreselectionByLabel(ngaAPI, "Commentator");
+  if (preselection) {
+    ngaAPI.preselections.selectedPreselection = preselection;
+  }
+}
+            </pre>
+          </aside>
+          <section>
+            <h3>Use case requirements on API</h3>
+            <ul>
+              <li>Exposing the available preselections from an incoming media stream, including a meaningful description for the user of each preselection</li>
+              <li>a setter/getter for the active preselection</li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <h3>Gain Interactivity</h3>
+          <p>
+            With an NGA codec, content creators can enable gain adjustment for certain content components. Users may set these gain values to their preference, within limits chosen by the creator.
+          </p>
+          <p>
+            One example application is changing the gain of a spoken language component for better intelligibility, e.g., the commentator, [=Audio Description=], or the main dialogue of a movie. To offer this functionality, a content creator could author the metadata during production to allow gain interactivity for the component within a defined range (e.g., -6 to +12 dB).
+          </p>
+          <figure id="figure2">
+            <img src="dialogue-gain-control.png" />
+            <figcaption>Example for a dialogue gain control</figcaption>
+          </figure>
+          <aside class="example" title="Example code for gain interactivity">
+            <pre class="js">
+  const video = document.getElementById("video");
+  const ngaAPI = video.ngaAPI;
+  if (ngaAPI) {
+    const ae = getAudioObject(ngaAPI, "Standard", "Commentator");
+    if (ae.prominenceInteractivity) {
+      if (ae.prominenceInteractivity.minProminence &&
+          ae.prominenceInteractivity.minProminence &lt;= 7.5 &&
+          ae.prominenceInteractivity.maxProminence &&
+          ae.prominenceInteractivity.maxProminence >= 7.5) {
+      ae.prominenceInteractivity.setProminence(7.5);
+      }
+    }
+  }
+            </pre>
+          </aside>
+          <section>
+            <h3>Use case requirements on API</h3>
+            <ul>
+              <li>exposing the content components which allow gain interactivity, including a meaningful description for the user</li>
+              <li>exposing the allowed range of the gain interactivity for each component that allows gain interactivity</li>
+              <li>a setter/getter for the current gain value for each component that allows gain interactivity</li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <h3>Position Interactivity</h3>
+          <p>
+            With NGA, a content creator can allow position interactivity for individual content components. This feature can be used to further enhance [=Audio Description=] intelligibility. Users may use this functionality for better spatial separation between the main dialogue and the Audio Description.
+          </p>
+          <p>Examples include:</p>
+          <ul>
+            <li>Spatially panning Audio Description to rear-right speaker position for visually impaired users</li>
+            <li>Moving <abbr title="public address">PA</abbr> announcer audio objects in sports events to overhead speakers for enhanced stadium atmosphere</li>
+            <li>Positioning different commentators to left and right for more natural conversation experience</li>
+          </ul>
+          <figure id="figure3">
+            <img src="position-controls.png" />
+            <figcaption>Example Application showing position interactivity controls for the commentator</figcaption>
+          </figure>
+          <aside class="example" title="Example code for position interactivity">
+            <pre class="js">
+const video = document.getElementById("video");
+const ngaAPI = video.ngaAPI;
+if (ngaAPI) {
+  const ae = getAudioObject(ngaAPI, "Standard", "Commentator");
+  if (ae.positionInteractivity) {
+    if (ae.positionInteractivity.minElevation &&
+        ae.positionInteractivity.minElevation &lt;= 90.0 &&
+        ae.positionInteractivity.maxElevation &&
+        ae.positionInteractivity.maxElevation >= 90.0) {
+    ae.positionInteractivity.setElevation(90.0);
+    }
+  }
+}
+            </pre>
+          </aside>
+          <section>
+            <h3>Use case requirements on API</h3>
+            <ul>
+              <li>exposing the content components for position interactivity, including a meaningful description for the user</li>
+              <li>exposing the allowed range of the position interactivity, for each component that allows position interactivity</li>
+              <li>a setter/getter for the current position value, for each component that allows position interactivity</li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <h3>Selection Among Multiple Audio Elements</h3>
+          <p>
+            NGA codecs enable the ability to select between multiple content components. This is typically a choice of different content alternatives, where only exactly one can be active at a time.
+          </p>
+          <p>Examples include:</p>
+          <ul>
+            <li>The language of the dialogue in a movie</li>
+            <li>The home or away commentator in a sports event</li>
+            <li>Optional content components, e.g. Audio Description</li>
+          </ul>
+          <figure id="figure4">
+            <img src="language-selection.png" />
+            <figcaption>Example Application showing language selection and gain interactivity controls for the Commentator</figcaption>
+          </figure>
+          <aside class="example" title="Example code for audio element selection">
+            <pre class="js">
+const video = document.getElementById("video");
+const ngaAPI = video.ngaAPI;
+if (ngaAPI) {
+  const aes = getAudioObjectSelection(ngaAPI, "Standard", "Commentators");
+  if (aes) {
+    for (let i = 0; i &lt; aes.audioElements.length; ++i) {
+      const ae = aes.audioElements[i];
+      for (let j = 0; j &lt; ae.labels.length; ++j) {
+        for (const [key, value] in ae.labels[j].label) {
+          if (value === "English") {
+            aes.selectAudioElement(ae);
+            return;
+          }
+        }
+      }
+    }
+  }
+}
+            </pre>
+          </aside>
+          <section>
+            <h3>Use case requirements on API</h3>
+            <ul>
+              <li>exposing the content components that can be enabled/disabled, and an option list where exactly one option can be selected, including a meaningful description for the user</li>
+              <li>a setter/getter for enabling/disabling content components</li>
+              <li>a setter/getter for selecting the active content component</li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <h3>Controlling Different Audio Attributes Simultaneously</h3>
+          <p>
+            One enhanced NGA concept for better intelligibility of dialogue components in a TV program is called <dfn>narrative importance</dfn>, which allows better intelligibility by grouping audio content components into hierarchies based on their importance for understanding the scene.
+          </p>
+          <p>
+            For example, the highest hierarchy level contains elements that are essential for the narrative (dialogue, semantically rich effects, [=Audio Description=]), while lower hierarchy levels contain background music and non-essential effects. Multiple layers of importance can be created, with all necessary gain modifications applied simultaneously through a single control.
+          </p>
+          <figure id="figure5">
+            <img src="narrative-importance.png" />
+            <figcaption>Example Application showing a narrative importance slider</figcaption>
+          </figure>
+          <aside class="example" title="Example code for [=narrative importance=] control">
+            <pre class="js">
+const video = document.getElementById("video");
+const ngaAPI = video.ngaAPI;
+if (ngaAPI) {
+  let ae1 = getAudioObject(ngaAPI, "Main", "Commentator");
+  ae1.prominenceInteractivity.setProminence(7.5);
+  let ae2 = getAudioObject(ngaAPI, "Main", "Effects");
+  ae2.prominenceInteractivity.setProminence(7.5);
+  let ae3 = getAudioObject(ngaAPI, "Main", "Background");
+  ae3.prominenceInteractivity.setProminence(-3.5);
+}
+            </pre>
+          </aside>
+          <section>
+            <h3>Use case requirements on API</h3>
+            <ul>
+              <li>exposing all content components including the interactivity ranges, a meaningful description for the end-user, and an attribute that allows grouping of content components (e.g. <abbr title="[=Music and Effects=]">M&E</abbr>, Dialogue, [=Audio Description=], etc.)</li>
+              <li>a setter/getter for changing the gain values of each content component</li>
+            </ul>
+          </section>
+        </section>
+      </section>
+    <section>
+      <h2>Requirements</h2>
+      <p>
+        In the examples above, a number of requirements on the API are implicitly assumed:
+      </p>
+      <section>
+        <h3>Codec Agnostic</h3>
+        <p>
+          The API MUST be codec-agnostic. There are many NGA codecs from competing companies that all offer all or parts of the personalization use cases outlined above. The API should work for all of these, such that implementation has the highest value for browser implementers as well as application developers.
+        </p>
+      </section>
+      <section>
+        <h3>Protected Media Compatibility</h3>
+        <p>
+          The API MUST NOT preclude the use of protected media. Most NGA codecs are used for commercial content, much of which is rights protected and therefore DRM protected. In technical terms, this likely means that the API has to work when media is played back using EME.
+        </p>
+      </section>
+      <section>
+        <h3>Multiple Media Streams</h3>
+        <p>
+          The API MUST work when multiple media streams are being rendered/decoded. In most media playback scenarios, there is at least one video and one audio codec being used. Since personalization options are typically tied to a specific media stream, the API needs to be specific to individual media streams.
+        </p>
+      </section>
+      <section>
+        <h3>Real-time Operation</h3>
+        <p>
+          The API MUST be usable while media is playing and MUST be operable asynchronously to the media. When a personalization change is made, the user would expect the change to be effective immediately, not when the tip of the media queue is eventually rendered.
+        </p>
+      </section>
+      <section>
+        <h3>Non-blocking Hardware Access</h3>
+        <p>
+          The API MUST NOT block on hardware/codec access. The personalization features often require setting parameters on either the decoder or the rendering pipeline, which may run in different threads or on different hardware. Calls to set or get personalization features SHOULD return immediately, likely with a promise.
+        </p>
+      </section>
+    </section>
+
+    <section>
+      <h2>Gap Analysis</h2>
+
+      <p>The gap analysis explores whether existing APIs can be used to decode and personalize NGA content.</p>
+
+      <section>
+        <h3>WebCodecs + WebAudio Approach</h3>
+        <p>
+          The most obvious alternative would be to use a [[WEBCODECS]] {{AudioDecoder}} to decode NGA streams and [[WEBAUDIO]] {{AudioNode}}s to mix the resulting components.
+          However, this approach has several critical limitations that make it unsuitable for real-world NGA applications.
+        </p>
+        <ul>
+          <li><strong>Incompatible with protected content:</strong> The most tangible limitation of a WebCodecs/WebAudio approach is that in this model, content is always in the clear. This is fundamentally incompatible with protected content models that are the backbone of high quality commercial media delivery on the internet.</li>
+          <li><strong>Limited Spatial Audio Support:</strong> While WebAudio can carry more than two channels, there is no way to indicate the spatial configuration of those channels.</li>
+          <li><strong>No Object-Based Audio Support:</strong> WebCodecs and WebAudio are designed around channels and nodes, not audio objects with spatial properties that NGA requires.</li>
+          <li><strong>Content Creator has no control of mix result:</strong> The integrated approach ensures content creators' intent is preserved through metadata-defined constraints on mixing parameters. Delivering audio as separate streams cannot guarantee that content is mixed as intended by the content creator.</li>
+          <li><strong>No metadata pipeline:</strong> Mixing of components in NGA is controlled by metadata. There is no defined way to carry such metadata, specifically when it needs to be time-aligned.</li>
+        </ul>
+        <p>Beyond these concerns, there are further issues, as detailed in the following.</p>
+        <section>
+          <h2>Delivery as a single stream</h2>
+          <p>
+            The industry has adopted an integrated stream delivery model where audio components and metadata are delivered together in a single stream.
+            Content delivered this way would need to be decoded into several streams of data and metadata that can then be mixed using WebAudio components.
+            This would require WebCodecs to be able to output more than one stream where one of those streams is time aligned metadata used for the mixing process.
+          </p>
+        </section>
+
+        <section>
+          <h3>Separate Component Delivery</h3>
+          <p>
+            Delivering audio components as separate streams might seem like a solution but presents significant drawbacks:
+          </p>
+          <ul>
+            <li><strong>Increased Complexity and Failure Points:</strong> Separate delivery creates new failure scenarios where some components may be received while others are dropped during transmission.</li>
+            <li><strong>Optimization Limitations:</strong> Having and decoding all components in one decoder allows optimizations that are otherwise not available, which can be crucial for embedded devices.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>JavaScript or WASM Decoder</h3>
+          <p>
+            A JavaScript or WASM-based decoder with output passed to the Web Audio API would face the same metadata bridging problems as the WebCodecs approach, plus additional drawbacks:
+          </p>
+          <ul>
+            <li><strong>Performance Limitations:</strong> Many codecs would be too complex to implement in real-time on most platforms using JavaScript or WASM.</li>
+            <li><strong>Battery and Resource Impact:</strong> Software decoding is significantly more resource-intensive than hardware-accelerated decoding.</li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <h3>Encoding and Media Capture</h3>
+        <p>
+          Current web platform APIs such as WebCodecs [[WEBCODECS]] {{AudioEncoder}} and [[MEDIASTREAM-RECORDING]] {{MediaRecorder}} allow websites to record and encode audio. We do not propose to add support for Next Generation Audio codecs to such APIs at this time.
+        </p>
+      </section>
+    </section>
+    <section id="conformance"></section>
+    <section id="acknowledgements">
+      <h2>
+        Acknowledgments
+      </h2>
+      <p>
+        The editors would like to thank all contributors to this draft and the members of the W3C Media Entertainment Interest Group for their valuable feedback and contributions.
+      </p>
+    </section>
+    <section class="appendix">
+      <h2>Definitions</h2>
+      <dl class="">
+        <dt><dfn>audio description</dfn></dt>
+        <dd>TODO insert definition</dd>
+        <dt><dfn>music and effects</dfn></dt>
+        <dd>TODO insert definition</dd>
+        <dt><dfn>object-based audio</dfn></dt>
+        <dd>Audio represented as individual objects with spatial properties rather than fixed channels.</dd>
+        <dt><dfn>position interactivity</dfn></dt>
+        <dd>The ability to change the spatial position of audio components within the sound stage.</dd>
+        <dt><dfn>prominence</dfn></dt>
+        <dd>The relative gain/volume of an audio component, often adjustable within creator-defined limits.</dd>
+      </dl>
     </section>
   </body>
 </html>
