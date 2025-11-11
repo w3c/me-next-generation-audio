@@ -78,7 +78,10 @@
         An extensive set of standardized NGA metadata is crucial for adapting to the given listening environment and therefore for delivering an immersive audio experience, enabling the system to adapt to user preferences, and enabling advanced user interaction possibilities. The same set of metadata that allows the user to interact with the content can be used to facilitate corresponding application interfaces.
       </p>
       <p>
-        A comprehensive set of metadata has been described in the FDIS (Final Draft International Standard) of the ISO Base Media File-Format (ISO/IEC 14496-12 [[ISOBMFF]]). The most basic metadata is a grouping of objects and settings into so called <dfn>preselections</dfn>. Preselections are pre-baked combinations of object gain settings which can be activated or deactivated, and effectively set defaults for the parameters underneath.
+        A comprehensive set of metadata has been described in the <abbr title="Final Draft International Standard">FDIS</abbr> of the ISO Base Media File-Format (ISO/IEC 14496-12 [[ISOBMFF]]). Maybe the most basic metadata is a grouping of objects and settings into so called [=preselections=]. [=Preselections=] are pre-baked combinations of object gain settings which can be activated or deactivated, and effectively set defaults for the parameters underneath. Preselections can also expose more customization options, e.g. changing the dialogue loudness within a range based on the metadata, and thus serve as the entry point for any further customization.
+      </p>
+      <p>
+        The proposed API exposes information describing said metadata of the NGA scene and allows interacting with the respective codec to individualize the user experience during audio playbook. This document does not prejudge on where the API should ideally be placed. For example, it could be added directly to HTMLMediaElement or to the corresponding AudioTrack object representing an NGA track.
       </p>
     </section>
     <section class="informative">
@@ -87,6 +90,9 @@
       </h2>
       <p>
         The following use cases are all audio centric, but it should be noted that there exist video specific use cases as well. As time goes on, this document might pick up further use cases that are not audio specific.
+      </p>
+      <p>
+        The next section will textually describe those audio use-cases, for a more immersive "description" the reader is directed to <a href="https://youtu.be/fxsvVcIOiJA">https://youtu.be/fxsvVcIOiJA</a>.
       </p>
       <section>
         <h3>Allowing the User to Select a [=Preselection=]</h3>
@@ -129,6 +135,13 @@ if (ngaAPI) {
 }
             </pre>
           </div>
+          <section>
+            <h3>Use case requirements on API</h3>
+            <ul>
+              <li>Exposing the available preselections from an incoming media stream, including a meaningful description for the user of each preselection</li>
+              <li>a setter/getter for the active preselection</li>
+            </ul>
+          </section>
         </section>
         <section>
           <h3>Gain Interactivity</h3>
@@ -156,6 +169,14 @@ if (ngaAPI) {
   }
             </pre>
           </div>
+          <section>
+            <h3>Use case requirements on API</h3>
+            <ul>
+              <li>exposing the content components which allow gain interactivity, including a meaningful description for the user</li>
+              <li>exposing the allowed range of the gain interactivity for each component that allows gain interactivity</li>
+              <li>a setter/getter for the current gain value for each component that allows gain interactivity</li>
+            </ul>
+          </section>
         </section>
         <section>
           <h3>Position Interactivity</h3>
@@ -188,6 +209,14 @@ if (ngaAPI) {
 }
             </pre>
           </div>
+          <section>
+            <h3>Use case requirements on API</h3>
+            <ul>
+              <li>exposing the content components for position interactivity, including a meaningful description for the user</li>
+              <li>exposing the allowed range of the position interactivity, for each component that allows position interactivity</li>
+              <li>a setter/getter for the current position value, for each component that allows position interactivity</li>
+            </ul>
+          </section>
         </section>
         <section>
           <h3>Selection Among Multiple Audio Elements</h3>
@@ -222,6 +251,14 @@ if (ngaAPI) {
 }
             </pre>
           </div>
+          <section>
+            <h3>Use case requirements on API</h3>
+            <ul>
+              <li>exposing the content components that can be enabled/disabled, and an option list where exactly one option can be selected, including a meaningful description for the user</li>
+              <li>a setter/getter for enabling/disabling content components</li>
+              <li>a setter/getter for selecting the active content component</li>
+            </ul>
+          </section>
         </section>
         <section>
           <h3>Controlling Different Audio Attributes Simultaneously</h3>
@@ -246,6 +283,13 @@ if (ngaAPI) {
 }
             </pre>
           </div>
+          <section>
+            <h3>Use case requirements on API</h3>
+            <ul>
+              <li>exposing all content components including the interactivity ranges, a meaningful description for the end-user, and an attribute that allows grouping of content components (e.g. Music, Dialogue, Audio Description, etc.)</li>
+              <li>a setter/getter for changing the gain values of each content component</li>
+            </ul>
+          </section>
         </section>
       </section>
     <section>
