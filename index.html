@@ -9,6 +9,7 @@
       var respecConfig = {
         // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
         specStatus: "DNOTE",
+        latestVersion: null,
         // the specification's short name, as in https://www.w3.org/TR/short-name/
         shortName: "me-next-generation-audio-personalization",
         edDraftURI: "https://w3c.github.io/me-next-generation-audio-personalization/",
@@ -44,7 +45,7 @@
     <section>
       <h2>Introduction</h2>
       <p>
-        In contrast to traditional audio codecs (e.g. AAC), Next Generation Audio (NGA) codecs utilize new ways of object-based audio coding and in-band transmission of a variety of metadata to control the playback-side rendering of audio content. Object-based audio coding enables content providers to deliver individual audio components to the playback-side in a flexible way. The components can be combined into a single bitstream or separated into multiple bitstreams.
+        In contrast to traditional audio codecs (e.g. <abbr title="Advanced Audio Coding">AAC</abbr>), Next Generation Audio (NGA) codecs utilize new ways of object-based audio coding and in-band transmission of a variety of metadata to control the playback-side rendering of audio content. Object-based audio coding enables content providers to deliver individual audio components to the playback-side in a flexible way. The components can be combined into a single bitstream or separated into multiple bitstreams.
       </p>
       <p>
         NGA codecs provide a rich set of metadata and allow users to change certain aspects of an audio presentation, including:
@@ -62,7 +63,7 @@
         Maybe the most basic metadata in the context of NGA is a grouping of objects and settings into so called [=preselections=]. [=Preselections=] are pre-baked combinations of object gain settings which can be activated or deactivated, and effectively set defaults for the parameters underneath. Preselections can also expose more customization options, e.g. changing the dialogue loudness within a range based on the metadata, and thus serve as the entry point for any further customization.
       </p>
       <p>
-        The envisioned API should expose information describing said metadata of the NGA scene and should allow interacting with the respective codec to individualize the user experience during audio playback. This document does not prejudge on where the API should ideally be placed. For example, it could be added directly to HTMLMediaElement or to the corresponding AudioTrack object representing an NGA track.
+        The envisioned API should expose information describing said metadata of the NGA scene and should allow interacting with the respective codec to individualize the user experience during audio playback. This document does not prejudge on where the API should ideally be placed. For example, it could be added directly to {{HTMLMediaElement}} or to the corresponding {{AudioTrack}} object representing an NGA track.
       </p>
     </section>
 
@@ -81,7 +82,7 @@
           One basic NGA feature is selecting a so-called <dfn data-lt="preselection">audio preselection</dfn>. An audio preselection is a set of predefined mix parameters for the included content components. Such components, also known as <dfn data-lt="object">audio objects</dfn>, of an audio program, can for example be the dialogue object, or the background audio object.
         </p>
         <figure id="figure1">
-          <img src="preselections-menu.png" />
+          <img src="figures/preselections-menu.png" />
           <figcaption>Example for an NGA Menu offering different Preselections (Default, Home Team, Away Team, Venue)</figcaption>
         </figure>
         <p>
@@ -89,9 +90,9 @@
         </p>
         <p>Examples include:</p>
         <ul>
-          <li>Preselections where background audio is combined with different dialogue tracks (one preselection per language)</li>
+          <li>Preselections where background audio is combined with different dialogue tracks (for example, different languages resulting in one preselection per language)</li>
           <li>Preselections with associated components such as [=audio description=]</li>
-          <li>Alternative audio mixes where dialogue gain is increased for better intelligibility for people that are hard of hearing</li>
+          <li>Alternative audio mixes where dialogue gain is increased for better intelligibility for people that are hard of hearing or in noisy environments</li>
         </ul>
         <aside class="example" title="Example code for preselection selection">
           <pre class="js">
@@ -134,10 +135,10 @@
           With an NGA codec, content creators can enable gain adjustment for certain content components. Users may set these gain values to their preference, within limits chosen by the creator.
         </p>
         <p>
-          One example application is changing the gain of a spoken language component for better intelligibility, e.g., the commentator, [=Audio Description=], or the main dialogue of a movie. To offer this functionality, a content creator could author the metadata during production to allow gain interactivity for the component within a defined range (e.g., -6 to +12 dB).
+          One example application is changing the gain of a spoken language component for better intelligibility, e.g., the commentator, [=Audio Description=], or the main dialogue of a movie. To offer this functionality, a content creator could author the metadata during production to allow gain interactivity for the component within a defined range (for example, between -6 dB and +12 dB).
         </p>
         <figure id="figure2">
-          <img src="dialogue-gain-control.png" />
+          <img src="figures/dialogue-gain-control.png" />
           <figcaption>Example for a dialogue gain/[=prominence=] control</figcaption>
         </figure>
         <aside class="example" title="Example code for gain interactivity">
@@ -173,12 +174,12 @@
         </p>
         <p>Examples include:</p>
         <ul>
-          <li>Spatially panning Audio Description to rear-right speaker position for visually impaired users</li>
-          <li>Moving <abbr title="public address">PA</abbr> announcer audio objects in sports events to overhead speakers for enhanced stadium atmosphere</li>
-          <li>Positioning different commentators to left and right for more natural conversation experience</li>
+          <li>Spatially panning Audio Description to the rear-right speaker position for visually impaired users</li>
+          <li>Moving <abbr title="public address">PA</abbr> announcer audio objects in sports events to overhead speakers for an enhanced stadium atmosphere</li>
+          <li>Positioning different commentators to the left and the right for more natural conversation experience</li>
         </ul>
         <figure id="figure3">
-          <img src="position-controls.png" />
+          <img src="figures/position-controls.png" />
           <figcaption>Example Application showing [=position interactivity=] controls for the commentator</figcaption>
         </figure>
         <aside class="example" title="Example code for position interactivity">
@@ -219,7 +220,7 @@
           <li>Optional content components, e.g. Audio Description</li>
         </ul>
         <figure id="figure4">
-          <img src="language-selection.png" />
+          <img src="figures/language-selection.png" />
           <figcaption>Example Application showing language selection and gain interactivity controls for the Commentator</figcaption>
         </figure>
         <aside class="example" title="Example code for audio element selection">
@@ -262,7 +263,7 @@
           For example, the highest hierarchy level contains elements that are essential for the narrative (dialogue, semantically rich effects, [=Audio Description=]), while lower hierarchy levels contain background <a data-lt="music and effects">music and non-essential effects</a>. Multiple layers of importance can be created, with all necessary gain modifications applied simultaneously through a single control.
         </p>
         <figure id="figure5">
-          <img src="narrative-importance.png" />
+          <img src="figures/narrative-importance.png" />
           <figcaption>Example Application showing a [=narrative importance=] slider</figcaption>
         </figure>
         <aside class="example" title="Example code for narrative importance control">
@@ -328,7 +329,7 @@
     <section>
       <h2>Gap Analysis</h2>
 
-      <p>The gap analysis explores whether existing APIs can be used to decode and personalize NGA content.</p>
+      <p>This section explores whether existing APIs can be used to decode and personalize NGA content.</p>
 
       <section>
         <h3>WebCodecs + WebAudio Approach</h3>
