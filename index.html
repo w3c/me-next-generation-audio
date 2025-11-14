@@ -29,7 +29,7 @@
             publisher: "DVB",
           },
         },
-        xref: ["dom", "html", "infra", "webidl", "webcodecs", "webaudio", "mediastream-recording","wcag22"]
+        xref: ["dom", "html", "infra", "webidl", "webcodecs", "webaudio", "mediastream-recording", "wcag22", "mse-byte-stream-format-isobmff"]
       };
     </script>
   </head>
@@ -356,13 +356,29 @@
 
       <p>This section explores whether existing APIs can be used to decode and personalize NGA content.</p>
 
-      <p class="ednote" title="Explore using the HTMLMediaElement">
-        We are planning to look at whether the {{HTMLMediaElement}} could be used to implement the use cases.
-      </p>
+      <section>
+        <h3>Using the {{HTMLMediaElement}} for playback</h3>
+        <p>
+          The {{HTMLMediaElement}} does not make decoding results available to the caller so any NGA processing would have to happen through the decoder.
+        </p>
+        <p>
+          To control or trigger NGA processing, the {{HTMLMediaElement/audioTracks}} interface might be useful. For ISOBMFF media, [[INBANDTRACKS]] suggests that audioTracks map to separate ISOBMFF tracks. Conceivably, preselections or even individual audio objects could also be mapped to tracks. Preselections could be selected by setting the {{AudioTrack//enabled}} flag.
+        </p>
+        <p>This re-interpretation raises some issues:</p>
+        <ul>
+          <li>Some disambiguation is needed whether a given AudioTrack represents a track as per [[INBANDTRACKS]], a preselection or even a single audio object.</li>
+          <li>If a given preselection consists of only one audio components, then there is potential for duplication of experiences if both the component and the preselection show up as separate {{HTMLMediaElement/audioTracks}}s.</li>
+          <li>audioTracks expose only very few attributes insufficient to identify preselections. The list of attributes would have to be expanded.</li>
+          <li>The semantics of preselections are such that they are mutually exclusive, so enabling one preselection would need to disable others. It is not clear whether this semantic is compatible with the design of the {{AudioTrack//enabled}} attribute.</li>
+          <li>It is not clear how an application could inquire whether a given preselection is playable. This is specifically relevant if the list of preselections is not pre-filtered, as suggested in <a href="#privacy-considerations">privacy considerations</a>.</li>
+          <li>AudioTracks have no control beyond enabling tracks; specifically, none for position or gain of tracks.</li>
+        </ul>
+      </section>
+
       <section>
         <h3>Using WebCodecs and WebAudio</h3>
         <p>
-          An alternative to the proposed approach would be to use a [[WEBCODECS]] {{AudioDecoder}} to decode NGA streams and [[WEBAUDIO]] {{AudioNode}}s to mix the resulting components.
+          Another alternative to the proposed approach would be to use a [[WEBCODECS]] {{AudioDecoder}} to decode NGA streams and [[WEBAUDIO]] {{AudioNode}}s to mix the resulting components.
           However, this approach has several critical limitations that make it unsuitable for real-world NGA applications.
         </p>
         <p class="ednote">
