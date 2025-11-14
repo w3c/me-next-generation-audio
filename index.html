@@ -348,12 +348,19 @@
 
       <p>This section explores whether existing APIs can be used to decode and personalize NGA content.</p>
 
+      <p class="ednote" title="Explore using the HTMLMediaElement">
+        We are planning to look at whether the {{HTMLMediaElement}} could be used to implement the use cases.
+      </p>
       <section>
         <h3>WebCodecs + WebAudio Approach</h3>
         <p>
           The most obvious alternative would be to use a [[WEBCODECS]] {{AudioDecoder}} to decode NGA streams and [[WEBAUDIO]] {{AudioNode}}s to mix the resulting components.
           However, this approach has several critical limitations that make it unsuitable for real-world NGA applications.
         </p>
+        <p class="ednote">
+          This section would benefit from some figures.
+        </p>
+
         <ul>
           <li><strong>Incompatible with protected content:</strong> The most tangible limitation of a WebCodecs/WebAudio approach is that in this model, content is always in the clear. This is fundamentally incompatible with protected content models that are the backbone of high quality commercial media delivery on the internet.</li>
           <li><strong>Limited Spatial Audio Support:</strong> While WebAudio can carry more than two channels, there is no way to indicate the spatial configuration of those channels.</li>
