@@ -39,19 +39,19 @@
     </section>
     <section id="sotd">
       <p>
-        This document is a work in progress and serves as a base for discussion. Feedback is highly appreciated, particularly regarding the optimal placement of the API within the web platform architecture.
+        This document is a work in progress and serves as a basis for discussion. Feedback is highly appreciated, particularly regarding the optimal placement of the API within the web platform architecture.
       </p>
     </section>
     <section>
       <h2>Introduction</h2>
       <p>
-        In contrast to traditional audio codecs (e.g. <abbr title="Advanced Audio Coding">AAC</abbr>), Next Generation Audio (NGA) codecs utilize new ways of object-based audio coding and in-band transmission of a variety of metadata to control the playback-side rendering of audio content. Object-based audio coding enables content providers to deliver individual audio components to the playback-side in a flexible way. The components can be combined into a single bitstream or separated into multiple bitstreams.
+        In contrast to traditional audio codecs (e.g. <abbr title="Advanced Audio Coding">AAC</abbr>), Next Generation Audio (NGA) codecs utilize new ways of [=object based audio=] coding and in-band transmission of a variety of metadata to control the playback-side rendering of audio content. Object-based audio coding enables content providers to deliver individual audio components to the playback-side in a flexible way. The components can be combined into a single bitstream or separated into multiple bitstreams.
       </p>
       <p>
         NGA codecs provide a rich set of metadata and allow users to change certain aspects of an audio presentation, including:
       </p>
       <ul>
-        <li>Dialogue enhancement to increase the intelligibility of dialogue in a movie</li>
+        <li>Dialogue enhancement to control the intelligibility of dialogue in a movie</li>
         <li>Dynamic range control to adjust the presentation to different listening environments</li>
         <li>Advanced language selection</li>
         <li>Spatial audio positioning and interactivity</li>
@@ -60,11 +60,25 @@
         An extensive set of standardized NGA metadata is crucial for adapting to the given listening environment and therefore for delivering an immersive audio experience, enabling the system to adapt to user preferences, and enabling advanced user interaction possibilities. The same set of metadata that allows the user to interact with the content can be used to facilitate corresponding application interfaces.
       </p>
       <p> 
-        Maybe the most basic metadata in the context of NGA is a grouping of objects and settings into so called [=preselections=]. [=Preselections=] are pre-baked combinations of object gain settings which can be activated or deactivated, and effectively set defaults for the parameters underneath. Preselections can also expose more customization options, e.g. changing the dialogue loudness within a range based on the metadata, and thus serve as the entry point for any further customization.
+        Maybe the most basic metadata in the context of NGA is a grouping of objects and settings into so-called [=preselections=]. [=Preselections=] are pre-baked combinations of object gain and object position settings which can be activated or deactivated, and effectively set defaults for the parameters underneath. Preselections can also expose more customization options, e.g. changing the dialogue loudness within a range based on the metadata, and thus serve as the entry point for any further customization.
       </p>
       <p>
         The envisioned API should expose information describing said metadata of the NGA scene and should allow interacting with the respective codec to individualize the user experience during audio playback. This document does not prejudge on where the API should ideally be placed. For example, it could be added directly to {{HTMLMediaElement}} or to the corresponding {{AudioTrack}} object representing an NGA track.
       </p>
+    </section>
+
+    <section>
+      <h2>Definitions</h2>
+      <dl>
+        <dt><dfn>audio description</dfn></dt>
+        <dd>narration added to the soundtrack to describe important visual details that cannot be understood from the main soundtrack alone [[WCAG22]]</dd>
+        <dt><dfn data-lt="Music and Effects">music and effects</dfn></dt>
+        <dd>TODO insert definition</dd>
+        <dt><dfn data-lt="object-based audio">object based audio</dfn></dt>
+        <dd>Audio represented using individual [=objects=] with spatial properties rather than fixed channels</dd>
+        <dt><dfn>prominence</dfn></dt>
+        <dd>The relative gain/volume of an audio component, often adjustable within creator-defined limits.</dd>
+      </dl>
     </section>
 
     <section>
@@ -124,7 +138,7 @@
         <section>
           <h3>Use case requirements on API</h3>
           <ul>
-            <li>Exposing the available preselections from an incoming media stream, including a meaningful description for the user of each preselection</li>
+            <li>exposing the available preselections from an incoming media stream, including a meaningful description for the user of each preselection</li>
             <li>a setter/getter for the active preselection</li>
           </ul>
         </section>
@@ -250,14 +264,14 @@
           <ul>
             <li>exposing the content components that can be enabled/disabled, and an option list where exactly one option can be selected, including a meaningful description for the user</li>
             <li>a setter/getter for enabling/disabling content components</li>
-            <li>a setter/getter for selecting the active content component</li>
+            <li>a setter/getter for selecting the active content component out of a selection of content components</li>
           </ul>
         </section>
       </section>
       <section>
         <h3>Controlling Different Audio Attributes Simultaneously</h3>
         <p>
-          One enhanced NGA concept for better intelligibility of dialogue components in a TV program is called <dfn>narrative importance</dfn>, which allows better intelligibility by grouping audio content components into hierarchies based on their importance for understanding the scene.
+          One advanced NGA concept for better intelligibility of dialogue components in a TV program is called <dfn>narrative importance</dfn>, which allows better intelligibility by grouping audio content components into hierarchies based on their importance for understanding the scene.
         </p>
         <p>
           For example, the highest hierarchy level contains elements that are essential for the narrative (dialogue, semantically rich effects, [=Audio Description=]), while lower hierarchy levels contain background <a data-lt="music and effects">music and non-essential effects</a>. Multiple layers of importance can be created, with all necessary gain modifications applied simultaneously through a single control.
@@ -392,19 +406,6 @@
       <p>
         The editors would like to thank all contributors to this draft and the members of the W3C Media Entertainment Interest Group for their valuable feedback and contributions.
       </p>
-    </section>
-    <section class="appendix">
-      <h2>Definitions</h2>
-      <dl>
-        <dt><dfn>audio description</dfn></dt>
-        <dd>narration added to the soundtrack to describe important visual details that cannot be understood from the main soundtrack alone [[WCAG22]]</dd>
-        <dt><dfn data-lt="Music and Effects">music and effects</dfn></dt>
-        <dd>TODO insert definition</dd>
-        <dt><dfn>object based audio</dfn></dt>
-        <dd>Audio represented using individual [=objects=] with spatial properties rather than fixed channels</dd>
-        <dt><dfn>prominence</dfn></dt>
-        <dd>The relative gain/volume of an audio component, often adjustable within creator-defined limits.</dd>
-      </dl>
     </section>
   </body>
 </html>
