@@ -16,8 +16,8 @@
         // editors, add as many as you like
         // only "name" is required
         editors: [
-          { name: "Wolfgang Schildbach", company: "Dolby Laboratories", companyURL: "https://dolby.com/" },
-          { name: "Bernd Czelhan", company: "Fraunhofer IIS", companyURL: "https://www.iis.fhg.de/" }
+          { name: "Wolfgang Schildbach", w3cid: "126328", company: "Dolby Laboratories", companyURL: "https://dolby.com/" },
+          { name: "Bernd Czelhan", w3cid: "139141", company: "Fraunhofer IIS", companyURL: "https://www.iis.fhg.de/" }
         ],
         group: "me",
         github: "w3c/me-next-generation-audio",
@@ -83,6 +83,8 @@
       <dl>
         <dt><dfn>audio description</dfn></dt>
         <dd>An audio alternative to the video image. Used to provide an audio alternative to the video image, in which aspects of the image are explained, for viewers who cannot see it at all, or who can see it only partially, for content that cannot easily be understood from the audio alone. [[DVB-A185]]</dd>
+        <dt><dfn>music and effects</dfn></dt>
+        <dd>Audio program component containing all audio except intelligible dialogue</dd>
         <dt><dfn>object based audio</dfn></dt>
         <dd>Audio that is delivered as audio objects such as dialogue, music and effects etc., that can be rendered in the <abbr title="Integrated Receiver Decoder">IRD</abbr> with variable settings to allow user preferences to be applied. [[DVB-A185]]</dd>
         <dt><dfn>prominence</dfn></dt>
@@ -96,7 +98,7 @@
         The following use cases are all audio centric, but it should be noted that there exist video specific use cases as well. As time goes on, this document might pick up further use cases that are not audio specific.
       </p>
       <p>
-        The next section will textually describe those audio use-cases, for a more immersive "description" the reader is directed to <a href="https://youtu.be/fxsvVcIOiJA">https://youtu.be/fxsvVcIOiJA</a>.
+        The next section will textually describe those audio use-cases; for a more immersive "description" the reader is directed to <a href="https://youtu.be/fxsvVcIOiJA">https://youtu.be/fxsvVcIOiJA</a>.
       </p>
 
       <section>
@@ -145,7 +147,7 @@
           </pre>
         </aside>
         <section>
-          <h3>U2. Use case requirements on API</h3>
+          <h3>Use case requirements on API</h3>
           <ul>
             <li>exposing the available preselections from an incoming media stream, including a meaningful description for the user of each preselection</li>
             <li>a setter/getter for the active preselection</li>
@@ -153,7 +155,7 @@
         </section>
       </section>
       <section>
-        <h3>Gain Interactivity</h3>
+        <h3>U2. Gain Interactivity</h3>
         <p>
           With an NGA codec, content creators can enable gain adjustment for certain content components. Users may set these gain values to their preference, within limits chosen by the creator.
         </p>
@@ -175,7 +177,7 @@
                     ae.prominenceInteractivity.minProminence &lt;= 7.5 &&
                     ae.prominenceInteractivity.maxProminence &&
                     ae.prominenceInteractivity.maxProminence >= 7.5) {
-                ae.prominenceInteractivity.setProminence(7.5);
+                  ae.prominenceInteractivity.setProminence(7.5);
                 }
               }
             }
@@ -216,7 +218,7 @@
                     ae.positionInteractivity.minElevation &lt;= 90.0 &&
                     ae.positionInteractivity.maxElevation &&
                     ae.positionInteractivity.maxElevation >= 90.0) {
-                ae.positionInteractivity.setElevation(90.0);
+                  ae.positionInteractivity.setElevation(90.0);
                 }
               }
             }
@@ -360,7 +362,7 @@
       <section>
         <h3>WebCodecs + WebAudio Approach</h3>
         <p>
-          The most obvious alternative would be to use a [[WEBCODECS]] {{AudioDecoder}} to decode NGA streams and [[WEBAUDIO]] {{AudioNode}}s to mix the resulting components.
+          An alternative to the proposed approach would be to use a [[WEBCODECS]] {{AudioDecoder}} to decode NGA streams and [[WEBAUDIO]] {{AudioNode}}s to mix the resulting components.
           However, this approach has several critical limitations that make it unsuitable for real-world NGA applications.
         </p>
         <p class="ednote">
