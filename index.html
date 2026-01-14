@@ -446,9 +446,9 @@
           <li>Support of the API in the user agent and/or codec</li>
           <li>Number and type of available preselection options (if available preselections are filtered to match device capabilities or user preferences)</li>
           <li>Language or accessibility-related defaults</li>
-        </ul> 
-        <p>
-          Mitigation: Avoid exposing unnecessary details. Consider returning generic responses or limiting queries to contexts where user interaction has occurred.
+        </ul>
+        <p class="practice advisement">
+          <b>Mitigation:</b> Avoid exposing unnecessary details. Consider returning generic responses or limiting queries to contexts where user interaction has occurred.
         </p>
       </section>
       <section>
@@ -456,9 +456,8 @@
         <p>
           The API may allow querying the currently selected preselection even when this has not been explicitly set by the origin. This risks exposing system defaults, which may reflect language or accessibility preferences.
         </p>
-        <h4>Mitigation</h4>
-        <p>
-          Avoid exposing global defaults unless explicitly permitted by the user, or possibly when in an activation context.
+        <p class="practice advisement">
+          <b>Mitigation:</b> Avoid exposing global defaults unless explicitly permitted by the user, or possibly when in an activation context.
         </p>
       </section>
       <section>
@@ -466,9 +465,8 @@
         <p>
           If the currently selected preselection is stored and controlled outside the user agent, there is a risk that information from one origin is leaked to another. For example, one origin might be able to query the preselection selection done by another origin.
         </p>
-        <h4>Mitigation</h4>
-        <p>
-          Ensure that queries return only information scoped to the current origin or session.
+        <p class="practice advisement">
+          <b>Mitigation:</b> Ensure that queries return only information scoped to the current origin or session.
         </p>
       </section>
       <section>
@@ -476,9 +474,8 @@
         <p>
           User preferences or system defaults may be exposed (for example, by pre-filtering or prioritizing preselections) without prior consent.
         </p>
-        <h4>Mitigation</h4>
-        <p>
-          Implementations should consider requiring explicit user consent or providing clear indicators that such information is being shared.
+        <p class="practice advisement">
+          <b>Mitigation:</b> Implementations should consider requiring explicit user consent or providing clear indicators that such information is being shared.
         </p>
       </section>
       <section>
@@ -486,9 +483,8 @@
         <p>
           Persistent storage of preselection choices or related metadata can create long-term identifiers.
         </p>
-        <h4>Mitigation</h4>
-        <p>
-          Implementations should minimize persistence and avoid linking data across origins.
+        <p class="practice advisement">
+          <b>Mitigation:</b> Implementations should minimize persistence and avoid linking data across origins.
         </p>
       </section>
     </section>
