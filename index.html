@@ -407,7 +407,7 @@
             Delivering and decoding each audio components as a separate stream might seem like a solution but presents significant drawbacks:
           </p>
           <ul>
-            <li><strong>Increased Complexity and Failure Points:</strong> Separate delivery creates new failure scenarios where some components may be received while others are dropped during transmission.</li>
+            <li><strong>Per-component delivery and synchronization:</strong> Independently delivered components can arrive late or be unavailable while others are ready. The player or delivery system must coordinate buffering and timestamps, then decide whether to wait, play without the missing component, or recover it. Without that coordination, playback may be delayed or the mix may be incomplete or out of sync.</li>
             <li><strong>Optimization Limitations:</strong> Having and decoding all components in one decoder allows optimizations that are otherwise not available, which can be crucial for embedded devices.</li>
           </ul>
         </section>
