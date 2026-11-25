@@ -28,6 +28,24 @@
             status: "Draft",
             publisher: "DVB",
           },
+          "ATSC-3.0": {
+            title: "3.0 Standards - ATSC: NextGen TV",
+            href: "https://www.atsc.org/atsc-documents/type/3-0-standards/",
+            status: "Approved",
+            publisher: "ATSC"
+          },
+          "HBBTV-205": {
+            title: "Hybrid Broadcast Broadband TV",
+            href: "https://www.etsi.org/deliver/etsi_ts/102700_102799/102796/01.08.01_60/ts_102796v010801p.pdf",
+            status: "Approved",
+            publisher: "ETSI"
+          },
+          "DVB-DASH": {
+            title: "Digital Video Broadcasting (DVB); MPEG-DASH Profile for Transport of ISO BMFF Based DVB Services over IP Based Networks",
+            href: "https://www.etsi.org/deliver/etsi_ts/103200_103299/103285/01.04.01_60/ts_103285v010401p.pdf",
+            status: "Approved",
+            publisher: "ETSI"
+          }
         },
         xref: ["dom", "html", "infra", "webidl", "webcodecs", "webaudio", "mediastream-recording", "wcag22", "mse-byte-stream-format-isobmff"]
       };
@@ -55,6 +73,25 @@
     </section>
     <section>
       <h2>Introduction</h2>
+      <p>
+        NGA allows users to interact with the content in new ways and experience immersive audio scenes at home or on the road.
+      </p>
+      <p>
+        While the immersive audio experience is an important feature enabled by the included renderer, the support of audio-objects, and the support of advanced channel layouts (including height speakers), this document mainly focuses on the interactive part of NGA.
+      </p>
+      <p>
+        User interaction can be as simple as choosing a predefined experience (prepared by the content author), up to more advanced use cases such as increasing the volume of the Audio Description independent from the main content or even moving to another position to allow better spatial separation.
+        A comprehensive list of possible interaction is given in the section "<a href="#usecases">Use Cases</a>".
+      </p>
+      <p>
+        Since there might be content for which no interaction at all is desired, like an immersive song, content creators and/or service provider are the ones defining which kind of interaction is possible at user side. Therefore, the compromise between enabling advanced use cases and preserving the artistic intent, can be made indiviual for each piece of content.
+      </p>
+      <p>
+        NGA is part of the ATSC3.0 Standard [[ATSC-3.0]], of HbbTV 2.0.5 [[HBBTV-205]] and DVB-DASH [[DVB-DASH]] and has been used in services for several years now.
+      </p>
+    </section>
+    <section>
+      <h2>Metadata</h2>
       <p>
         In contrast to traditional audio codecs (e.g. <abbr title="Advanced Audio Coding">AAC</abbr>), Next Generation Audio (NGA) codecs utilize new ways of [=object based audio=] coding and in-band transmission of a variety of metadata to control the playback-side rendering of audio content. Object-based audio coding enables content providers to deliver individual audio components to the playback-side in a flexible way. The components can be combined into a single bitstream or separated into multiple bitstreams.
       </p>
@@ -93,7 +130,7 @@
     </section>
 
     <section>
-      <h2>Use Cases</h2>
+      <h2 id="usecases">Use Cases</h2>
       <p>
         The following use cases are all audio centric, but it should be noted that there exist video specific use cases as well. As time goes on, this document might pick up further use cases that are not audio specific.
       </p>
