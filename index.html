@@ -401,7 +401,7 @@
           </p>
           <ul>
             <li><strong>Multistream output:</strong> A single {{AudioDecoder}} outputs decoded samples as {{AudioData}}, which can contain multiple audio channels. However, WebCodecs does not identify those channels as independent streams or associate them with NGA components and metadata. A multichannel output could carry samples for multiple components if the codec and decoder define such a mapping, but the API does not define or guarantee that mapping. Separate {{AudioDecoder}} instances can decode separately supplied streams, but this does not expose the component streams of one integrated NGA stream.</li>
-            <li><strong>Metadata carriage in WebAudio:</strong>WebCodecs would need to output time aligned metadata used for the mixing process. This concept is not explored in WebAudio so far.</li>
+            <li><strong>Metadata carriage and synchronization in WebAudio:</strong> The Web Audio graph processes audio samples but has no standard mechanism to carry arbitrary NGA metadata alongside them. An application would need to transport the metadata separately and synchronize it with the audio timestamps itself; Web Audio does not define how metadata from WebCodecs is associated with or applied to the corresponding samples.</li>
           </ul>
           <p>
             Delivering and decoding each audio components as a separate stream might seem like a solution but presents significant drawbacks:
