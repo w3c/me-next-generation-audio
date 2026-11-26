@@ -146,14 +146,6 @@
             }
           </pre>
         </aside>
-        <section>
-          <h3>Use case requirements on API</h3>
-          <ul>
-            <li>exposing the available preselections from an incoming media stream, including a meaningful description for the user of each preselection</li>
-            <li>a setter/getter for the active preselection</li>
-          </ul>
-        </section>
-      </section>
       <section>
         <h3>U2. Gain Interactivity</h3>
         <p>
@@ -183,14 +175,6 @@
             }
           </pre>
         </aside>
-        <section>
-          <h3>Use case requirements on API</h3>
-          <ul>
-            <li>exposing the content components which allow gain interactivity, including a meaningful description for the user</li>
-            <li>exposing the allowed range of the gain interactivity for each component that allows gain interactivity</li>
-            <li>a setter/getter for the current gain value for each component that allows gain interactivity</li>
-          </ul>
-        </section>
       </section>
       <section>
         <h3>U3. <dfn>Position Interactivity</dfn></h3>
@@ -224,14 +208,6 @@
             }
           </pre>
         </aside>
-        <section>
-          <h3>Use case requirements on API</h3>
-          <ul>
-            <li>exposing the content components for position interactivity, including a meaningful description for the user</li>
-            <li>exposing the allowed range of the position interactivity, for each component that allows position interactivity</li>
-            <li>a setter/getter for the current position value, for each component that allows position interactivity</li>
-          </ul>
-        </section>
       </section>
       <section>
         <h3>U4. Selection Among Multiple Audio Elements</h3>
@@ -270,14 +246,6 @@
             }
           </pre>
         </aside>
-        <section>
-          <h3>Use case requirements on API</h3>
-          <ul>
-            <li>exposing the content components that can be enabled/disabled, and an option list where exactly one option can be selected, including a meaningful description for the user</li>
-            <li>a setter/getter for enabling/disabling content components</li>
-            <li>a setter/getter for selecting the active content component out of a selection of content components</li>
-          </ul>
-        </section>
       </section>
       <section>
         <h3>U5. Controlling Different Audio Attributes Simultaneously</h3>
@@ -305,13 +273,6 @@
             }
           </pre>
         </aside>
-        <section>
-          <h3>Use case requirements on API</h3>
-          <ul>
-            <li>exposing all content components including the interactivity ranges, a meaningful description for the end-user, and an attribute that allows grouping of content components (e.g. <abbr title="Music and Effects">M&E</abbr>, Dialogue, [=Audio Description=], etc.)</li>
-            <li>a setter/getter for changing the gain values of each content component or [=audio object=]</li>
-          </ul>
-        </section>
       </section>
     </section>
     <section>
@@ -324,6 +285,48 @@
         <p>
           The API MUST be codec-agnostic. There are many NGA codecs from competing companies that all offer all or parts of the personalization use cases outlined above. The API should work for all of these, such that implementation has the highest value for browser implementers as well as application developers.
         </p>
+      </section>
+      <section>
+        <h3>Requirements On API For Use Case 1 (Preselection)</h3>
+        <ul>
+          <li>The API MUST allow obtaining a list of all available Preselection of the incoming media stream, including a meaningful description for the user.</li>
+          <li>The API MUST allow changing the currently active Preselection.</li>
+          <li>The API MUST allow obtaining the currently active Preselection (might be limited to same-origin or might be only available after setting once).</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Requirements On API For Use Case 2 (Gain Interactivity)</h3>
+        <ul>
+          <li>The API MUST allow obtaining content components which allow gain interactivity, including a meaningful description for the user.</li>
+          <li>The API MUST expose the allowed gain interactivity range for each content component that allows gain interactivity.</li>
+          <li>The API MUST allow changing the current gain value for each content component that allows gain interactivity (within the allowed range).</li>
+          <li>The API MUST allow obtaining the current gain value of each content component that allows gain interactivity (might be limited to same-origin or might be only available after setting once).</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Requirements On API For Use Case 3 (Position Interactivity)</h3>
+        <ul>
+          <li>The API MUST allow obtaining content components which allow position interactivity, including a meaningful description for the user.</li>
+          <li>The API MUST expose the allowed position interactivity range for each component that allows position interactivity.</li>
+          <li>The API MUST allow changing the current position value of each component that allows position interactivity.</li>
+          <li>The API MUST allow obtaining the current position value of each content component that allows position interactivity (might be limited to same-origin or might be only available after setting once).</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Requirements On API For Use Case 4 (Selection Among Multiple Audio Objects)</h3>
+        <ul>
+          <li>The API MUST allow obtaining the content components that can be enabled/disabled, and an dedicated list of content components from which exactly one content component is selected, including a meaningful description for the user.</li>
+          <li>The API MUST allow enabling and disabling of content components within the exposed list(s) and also changing the active content component for each exposed list.</li>
+          <li>The API MUST allow obtaining the enabled/disabled status for each content component that allows enabling/disabling and the API SHOULD allow obtaining the currently active object of each list of content components from which exactly one content component is selected (both might be limited to same-origin or might be only available after setting once).</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Requirements On API For Use Case 5 (Controlling Different Audio Attributes Simultaneously)</h3>
+        <ul>
+          <li>The API MUST expose content components including the interactivity ranges, a meaningful description for the end-user, and an attribute that allows grouping of content components (e.g. <abbr title="Music and Effects">M&E</abbr>, Dialogue, [=Audio Description=], etc.).</li>
+          <li>The API MUST allow changing the gain values of each content component or [=audio object=].</li>
+          <li>The API MUST allow obtaining the gain values of  each content component or [=audio object=] (might be limited to same-origin or might be only available after setting once).</li>
+        </ul>
       </section>
       <section>
         <h3>Protected Media Compatibility</h3>
